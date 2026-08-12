@@ -8,9 +8,7 @@ A simple Express.js server demonstrating Keycloak authentication, custom authent
 - Clone the repository:
     git clone https://github.com/faridulhaque/JT-Classic-Computer-Institute.git
 
-- Create a .env file in the root directory. ***Add the environment variables provided in the .txt file sent to classiccomputerins@gmail.com from faridmurshed9@gmail.com.***
-
-- Please find example env variables in the example.env file
+- Create a .env file in the root directory. ***Add the environment variables provided in the .txt file sent to classiccomputerins@gmail.com from faridmurshed9@gmail.com.*** (You can find the example env variables in the example.env file)
 
 
 
