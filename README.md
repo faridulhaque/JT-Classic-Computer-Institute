@@ -17,15 +17,15 @@ A simple Express.js server demonstrating Keycloak authentication, custom authent
 
 1. # Login
 
-- Keycloak Authentication
+## Keycloak Authentication
 
-API: POST /api/keycloak/login
+- API: POST /api/keycloak/login
 
-Custom Authentication
+## Custom Authentication
 
-API: POST /api/custom-auth/login
+- API: POST /api/custom-auth/login
 
-Use the following credentials:
+- Use the following credentials:
 
 Admin
 
@@ -55,13 +55,14 @@ Custom authentication generates the token using JWT.
 
 
 2. Fetch Role-Based Data
-- Keycloak
 
-API: GET /api/keycloak/data
+## Keycloak
 
-Custom Authentication
+- API: GET /api/keycloak/data
 
-API: GET /api/custom-auth/data
+## Custom Authentication
+
+- API: GET /api/custom-auth/data
 
 Copy the token returned from the login API and add it to the request headers:
 
@@ -74,11 +75,9 @@ Custom auth token → Custom auth data API
 
 A successful request returns a role-based message.
 
-3. Access Check — 403 Implementation
+3. # Access Check — 403 Implementation
 
-API:
-
-POST /api/custom-auth/access?role=<Role>
+- API: POST /api/custom-auth/access?role=<Role>
 
 The role query parameter must be one of:
 
