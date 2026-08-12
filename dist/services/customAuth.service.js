@@ -4,10 +4,8 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import pool from "../config/db.js";
 export const login = async (username, password) => {
-    console.log('Attempting login for username:', username);
     const result = await pool.query("SELECT id, username, password, role FROM users WHERE username = $1", [username]);
     const user = result.rows[0];
-    console.log('User found:', user);
     if (!user) {
         throw new Error("Invalid credentials");
     }

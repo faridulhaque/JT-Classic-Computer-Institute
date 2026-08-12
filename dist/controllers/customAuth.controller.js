@@ -8,13 +8,18 @@ export const loginController = async (req, res) => {
             });
         }
         const token = await login(username, password);
-        return res.status(200).json({
-            token,
-        });
+        if (token)
+            return res.status(200).json({
+                token,
+            });
+        else
+            return res.status(401).json({
+                message: "Invalid credentials",
+            });
     }
     catch (error) {
-        return res.status(401).json({
-            message: "Invalid credentials",
+        return res.status(error?.status).json({
+            message: error?.message || "Somethng went wrong! Failed to login.",
         });
     }
 };
@@ -27,8 +32,15 @@ export const getDataController = (req, res) => {
             });
         }
         const token = authHeader.split(" ")[1];
-        const message = getRoleMessage(token);
-        return res.status(200).json({ message });
+        if (token) {
+            const message = getRoleMessage(token);
+            return res.status(200).json({ message });
+        }
+        else {
+            return res.status(401).json({
+                message: "Invalid or expired token",
+            });
+        }
     }
     catch (error) {
         return res.status(401).json({

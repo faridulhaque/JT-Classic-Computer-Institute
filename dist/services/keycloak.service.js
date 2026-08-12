@@ -20,7 +20,6 @@ export const keycloakLogin = async (username, password) => {
     return response.data;
 };
 export const verifyKeycloakToken = async (token) => {
-    console.log('Verifying token:', token);
     const { payload } = await jwtVerify(token, JWKS, {
         issuer: `${KEYCLOAK_URL}/realms/${KEYCLOAK_REALM}`,
     });

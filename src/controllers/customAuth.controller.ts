@@ -7,6 +7,7 @@ export const loginController = async (
   res: Response
 ) => {
   try {
+
     const { username, password } = req.body;
 
     if (!username || !password) {
@@ -23,8 +24,8 @@ export const loginController = async (
       message: "Invalid credentials",
     });
   } catch (error: any) {
-    return res.status(error?.status).json({
-      message: error?.message || "Somethng went wrong! Failed to login.",
+    return res.status(error?.status || 500).json({
+      message: error?.message || "Something went wrong! Failed to login.",
     });
   }
 };
@@ -41,7 +42,7 @@ export const getDataController = (req: Request, res: Response) => {
 
     const token = authHeader.split(" ")[1];
     if (token) {
-      
+
       const message = getRoleMessage(token as string);
 
       return res.status(200).json({ message });

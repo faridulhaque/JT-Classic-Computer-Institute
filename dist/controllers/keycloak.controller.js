@@ -7,12 +7,18 @@ export const keycloakLoginController = async (req, res) => {
                 message: "Username and password are required",
             });
         }
-        const token = await keycloakLogin(username, password);
-        return res.status(200).json(token);
+        const result = await keycloakLogin(username, password);
+        const token = result?.access_token;
+        if (token)
+            return res.status(200).json(token);
+        else
+            return res.status(401).json({
+                message: "Invalid credentials",
+            });
     }
     catch (error) {
-        return res.status(401).json({
-            message: "Invalid credentials",
+        return res.status(error?.status ?? 500).json({
+            message: error.message ?? "Somethng went wrong! Failed to login.",
         });
     }
 };
@@ -53,8 +59,8 @@ export const keycloakDataController = async (req, res) => {
         });
     }
     catch (error) {
-        return res.status(401).json({
-            message: "Invalid or expired access token",
+        return res.status(error?.status ?? 500).json({
+            message: error?.message ?? "Something went wrong",
         });
     }
 };

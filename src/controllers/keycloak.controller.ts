@@ -8,6 +8,7 @@ export const keycloakLoginController = async (
 ) => {
   try {
 
+
     const { username, password } = req.body;
 
 
@@ -17,8 +18,10 @@ export const keycloakLoginController = async (
       });
     }
 
-    const token = await keycloakLogin(username, password);
-    if (token) return res.status(200).json(token);
+    const result = await keycloakLogin(username, password);
+    const token = result?.access_token;
+
+    if (token) return res.status(200).json({token: token});
     else return res.status(401).json({
       message: "Invalid credentials",
     });
@@ -76,7 +79,7 @@ export const keycloakDataController = async (
       ),
       message,
     });
-  } catch (error:any) {
+  } catch (error: any) {
     return res.status(error?.status ?? 500).json({
       message: error?.message ?? "Something went wrong",
     });
