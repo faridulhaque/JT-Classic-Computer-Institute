@@ -1,0 +1,87 @@
+import type { Request, Response } from "express";
+import { keycloakLogin, verifyKeycloakToken } from "../services/keycloak.service.js";
+
+
+export const keycloakLoginController = async (
+  req: Request,
+  res: Response
+) => {
+  try {
+
+
+    const { username, password } = req.body;
+
+
+    if (!username || !password) {
+      return res.status(400).json({
+        message: "Username and password are required",
+      });
+    }
+
+    const result = await keycloakLogin(username, password);
+    const token = result?.access_token;
+
+    if (token) return res.status(200).json({token: token});
+    else return res.status(401).json({
+      message: "Invalid credentials",
+    });
+  } catch (error: any) {
+    return res.status(error?.status ?? 500).json({
+      message: error.message ?? "Somethng went wrong! Failed to login.",
+    });
+  }
+};
+
+export const keycloakDataController = async (
+  req: Request,
+  res: Response
+) => {
+  try {
+    const authHeader = req.headers.authorization;
+
+
+
+    if (!authHeader?.startsWith("Bearer ")) {
+      return res.status(401).json({
+        message: "Access token required",
+      });
+    }
+
+    const token = authHeader.split(" ")[1];
+
+    const payload: any = await verifyKeycloakToken(token as string);
+
+    const roles = payload.realm_access?.roles;
+
+    if (!roles || !Array.isArray(roles)) {
+      return res.status(403).json({
+        message: "No role found",
+      });
+    }
+
+    let message;
+
+    if (roles.includes("Admin")) {
+      message = "Welcome Admin. Here is your admin-specific data.";
+    } else if (roles.includes("Reporter")) {
+      message = "Welcome Reporter. Here is your reporter-specific data.";
+    } else if (roles.includes("Public")) {
+      message = "Welcome Public user. Here is your public-specific data.";
+    } else {
+      return res.status(403).json({
+        message: "Insufficient permissions",
+      });
+    }
+
+    return res.status(200).json({
+      role: roles.find((role) =>
+        ["Admin", "Reporter", "Public"].includes(role)
+      ),
+      message,
+    });
+  } catch (error: any) {
+    return res.status(error?.status ?? 500).json({
+      message: error?.message ?? "Something went wrong",
+    });
+  }
+};
