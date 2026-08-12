@@ -10,25 +10,7 @@ A simple Express.js server demonstrating Keycloak authentication, custom authent
 
 - Create a .env file in the root directory. ***Add the environment variables provided in the .txt file sent to classiccomputerins@gmail.com from faridmurshed9@gmail.com.***
 
-- example.env variables -
-
-```env
-    KEYCLOAK_ADMIN=
-    KEYCLOAK_ADMIN_PASSWORD=
-
-    POSTGRES_USER=
-    POSTGRES_PASSWORD=
-    POSTGRES_DB=
-
-    KEYCLOAK_DB=
-    KEYCLOAK_DB_USER=
-    KEYCLOAK_DB_PASSWORD=
-
-    KEYCLOAK_URL=
-    KEYCLOAK_REALM=
-    KEYCLOAK_CLIENT_ID=
-
-    JWT_SECRET=
+- Please find example env variables in the example.env file
 
 
 
