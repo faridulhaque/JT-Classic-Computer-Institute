@@ -2,7 +2,7 @@
 import express from "express";
 
 import { keycloakDataController, keycloakLoginController } from "./controllers/keycloak.controller.js";
-import { getDataController, loginController } from "./controllers/customAuth.controller.js";
+import { checkAccessController, getDataController, loginController } from "./controllers/customAuth.controller.js";
 
 const app = express();
 app.use(express.json());
@@ -17,6 +17,7 @@ app.get("/api/keycloak/data", keycloakDataController);
 
 app.post("/api/custom-auth/login", loginController);
 app.get("/api/custom-auth/data", getDataController);
+app.post("/api/custom-auth/access", checkAccessController);
 
 const PORT = 5000;
 

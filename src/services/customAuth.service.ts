@@ -9,7 +9,7 @@ export const login = async (
   username: string,
   password: string
 ) => {
-  
+
   const result = await pool.query(
     "SELECT id, username, password, role FROM users WHERE username = $1",
     [username]
@@ -63,4 +63,31 @@ export const getRoleMessage = (token: string) => {
   }
 
   throw new Error("Invalid role");
+};
+
+
+export const checkAccess = (token: string, role: string) => {
+  const allowedRoles = ["Admin", "Reporter", "Public"];
+
+  if (!allowedRoles.includes(role)) {
+    throw new Error("Invalid parameter: role must be one of Admin, Reporter, or Public (in capital letters)");
+  }
+
+  const payload: any = jwt.verify(token, process.env.JWT_SECRET!);
+
+  const tokenRole = payload.role;
+
+  if (tokenRole !== role) {
+    throw new Error("Access denied");
+  }
+
+  if (role === "Admin") {
+    return "Admin-specific data";
+  }
+
+  if (role === "Reporter") {
+    return "Reporter-specific data";
+  }
+
+  return "Public-specific data";
 };
