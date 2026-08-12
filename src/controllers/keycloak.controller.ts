@@ -18,11 +18,13 @@ export const keycloakLoginController = async (
     }
 
     const token = await keycloakLogin(username, password);
-
-    return res.status(200).json(token);
-  } catch (error: any) {
-    return res.status(401).json({
+    if (token) return res.status(200).json(token);
+    else return res.status(401).json({
       message: "Invalid credentials",
+    });
+  } catch (error: any) {
+    return res.status(error?.status ?? 500).json({
+      message: error.message ?? "Somethng went wrong! Failed to login.",
     });
   }
 };
@@ -44,13 +46,7 @@ export const keycloakDataController = async (
 
     const token = authHeader.split(" ")[1];
 
-    
-
-
-
     const payload: any = await verifyKeycloakToken(token as string);
-
-   
 
     const roles = payload.realm_access?.roles;
 
@@ -80,9 +76,9 @@ export const keycloakDataController = async (
       ),
       message,
     });
-  } catch (error) {
-    return res.status(401).json({
-      message: "Invalid or expired access token",
+  } catch (error:any) {
+    return res.status(error?.status ?? 500).json({
+      message: error?.message ?? "Something went wrong",
     });
   }
 };
