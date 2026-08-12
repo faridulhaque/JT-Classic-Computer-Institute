@@ -15,7 +15,7 @@ A simple Express.js server demonstrating Keycloak authentication, custom authent
 
 # How to test
 
-1. # Login
+# 1. Login
 
 ## Keycloak Authentication
 
@@ -54,7 +54,7 @@ Keycloak authentication generates the token using the Keycloak configuration.
 Custom authentication generates the token using JWT.
 
 
-2. Fetch Role-Based Data
+# 2. Fetch Role-Based Data
 
 ## Keycloak
 
@@ -75,7 +75,7 @@ Custom auth token → Custom auth data API
 
 A successful request returns a role-based message.
 
-3. # Access Check — 403 Implementation
+# 3. Access Check — 403 Implementation
 
 - API: POST /api/custom-auth/access?role=<Role>
 
