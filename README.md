@@ -8,26 +8,9 @@ A simple Express.js server demonstrating Keycloak authentication, custom authent
 - Clone the repository:
     git clone https://github.com/faridulhaque/JT-Classic-Computer-Institute.git
 
-- Create a .env file in the root directory. ***Add the environment variables provided in the .txt file sent to classiccomputerins@gmail.com from faridmurshed9@gmail.com.***
+- Create a .env file in the root directory. ***Add the environment variables provided in the .txt file sent to classiccomputerins@gmail.com from faridmurshed9@gmail.com.*** (You can find the example env variables in the example.env file)
 
-- Example env
 
-KEYCLOAK_ADMIN=
-KEYCLOAK_ADMIN_PASSWORD=
-
-POSTGRES_USER=
-POSTGRES_PASSWORD=
-POSTGRES_DB=
-
-KEYCLOAK_DB=
-KEYCLOAK_DB_USER=
-KEYCLOAK_DB_PASSWORD=
-
-KEYCLOAK_URL=
-KEYCLOAK_REALM=
-KEYCLOAK_CLIENT_ID=
-
-JWT_SECRET=
 
 - Start the server:
     docker compose up --build
