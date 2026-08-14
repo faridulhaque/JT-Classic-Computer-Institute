@@ -70,7 +70,7 @@ Custom authentication generates the token using JWT.
 
 Copy the token returned from the login API and add it to the request headers:
 
-Authorization: Bearer <token>
+Authorization: Bearer token
 
 Important: The token must match the authentication type.
 
